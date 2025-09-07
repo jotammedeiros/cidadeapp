@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Itabuna - Ocorrências Municipais</title>
+  <style>
+    :root {
+      --brand-1: #ffd900c7; /* Amarelo da bandeira (mais vibrante) */
+      --brand-2: #000000; /* Preto da bandeira */
+      --glass-bg: rgba(255, 255, 255, 0.39); /* Fundo com um pouco mais de transparência */
+      --glass-border: rgba(255, 255, 255, 0.3); /* Borda mais visível */
+      --text-color: #080000; /* Cor do texto padrão */
+      --dark-text: #141414; /* Texto escuro para botões amarelos */
+    }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    body {
+      min-height: 100vh;
+      background: linear-gradient(to top, var(--brand-1), #ffc1075b); /* Gradiente de amarelos vibrantes */
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      overflow: hidden;
+       background-image: url(imagem/itabuna-1.webp);
+       background-repeat: no-repeat;
+       background-size: cover;
+        backdrop-filter: blur(7px);
+     
+    }
+    
+    /* Adicionando formas abstratas no fundo, com mais amarelo */
+    body::before, body::after {
+       
+        content: '';
+        position: absolute;
+        width: 500px; /* Formas maiores */
+        height: 500px;
+        border-radius: 50%;
+        filter: blur(100px); /* Mais desfoque */
+        opacity: 0.7; /* Mais opacidade */
+        z-index: -1;
+    }
+
+    body::before {
+        background: linear-gradient(45deg, #ffee0062, #ffc10752); /* Variações de amarelo */
+        top: -150px;
+        left: -150px;
+    }
+
+    body::after {
+        background: linear-gradient(225deg, #ffe03344, #ffd90049); /* Outras variações de amarelo */
+        bottom: -150px;
+        right: -150px;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 30px; /* Mais espaço abaixo do header */
+      
+    }
+    header img {
+      width: 300px; /* Um pouco menor para se integrar melhor */
+      height: auto;
+      display: block;
+      margin: 0 auto 10px;
+      filter: drop-shadow(0 4px 10px rgba(0,0,0,0.5)); /* Sombra mais intensa */
+    }
+    header h1 {
+      font-size: 3rem; /* Título maior */
+      color: var(--brand-2); /* Cor preta para o título */
+      text-shadow: 0 3px 5px rgba(0,0,0,0.3); /* Sombra mais suave */
+    }
+    .main-container {
+        display: flex;
+        gap: 70px; /* Espaço entre as caixas (welcome e login) */
+        max-width: 1000px; /* Largura máxima para o layout de duas colunas */
+        width: 100%;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .welcome-box {
+        background: rgba(255, 255, 255, 0.534); /* Fundo levemente transparente */
+        border: 0.5px solid rgba(255, 255, 255, 0.555);
+        border-radius: 20px;
+        padding: 50px;
+        backdrop-filter: blur(25px); /* Mais blur para se parecer com a imagem */
+        box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+        color: var(--text-color);
+        text-align: left; /* Alinhamento à esquerda como na imagem */
+        flex: 1; /* Ocupa o espaço disponível */
+        min-width: 400px; /* Largura mínima para a caixa de boas-vindas */
+    }
+
+    .welcome-box h2 {
+        font-size: 2.5rem; /* Tamanho maior para "Welcome Back!" */
+        color: var(--text-color);
+        margin-bottom: 15px;
+        text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    }
+    .welcome-box p {
+        font-size: 1.2rem;
+        line-height: 1.6;
+        color: rgba(10, 0, 0, 0.8);
+    }
+
+    .glass-box {
+      background: var(--glass-bg);
+      border: 0.5px solid var(--glass-border);
+      border-radius: 20px;
+      padding: 50px; /* Mais padding */      
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.432);
+      flex: 1; /* Ocupa o espaço disponível */
+      min-width: 550px; /* Largura mínima para a caixa de login/menu */
+      text-align: center;
+      color: var(--text-color);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .glass-box:hover {
+        transform: translateY(-2px); /* Efeito de elevação mais pronunciado */
+        box-shadow: 0 15px 50px rgba(0,0,0,0.4);
+    }
+    h2 {
+      margin-bottom: 20px; /* Mais espaço abaixo dos títulos */
+      font-size: 3rem;
+      text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+    }
+    input, textarea, select {
+      width: 100%;
+      padding: 14px 18px; /* Mais padding e um pouco de espaço nas laterais */
+      margin: 12px 0;
+      border-radius: 12px; /* Mais arredondado */
+      border: 1px solid rgba(255, 255, 255, 0.2); /* Borda sutil nos inputs */
+      background: rgba(255, 255, 255, 0.15); /* Fundo um pouco mais visível */
+      color: var(--text-color);
+      outline: none;
+      transition: background 0.3s, border-color 0.3s;
+    }
+    input::placeholder, textarea::placeholder {
+        color: rgba(19, 1, 1, 0.945);
+    }
+    input:focus, textarea:focus {
+        background: rgba(255, 255, 255, 0.25);
+        border-color: rgba(255, 255, 255, 0.5);
+    }
+    button {
+      width: 100%;
+      padding: 14px 20px;
+      margin-top: 20px; /* Mais espaço acima dos botões */
+      border: none;
+      border-radius: 12px;
+      background: linear-gradient(45deg, #ffea00, #ffc107); /* Gradiente de amarelo para o botão */
+      color: var(--brand-2); /* Texto preto */
+      font-weight: bold;
+      font-size: 1.1rem; /* Texto maior no botão */
+      cursor: pointer;
+      transition: background 0.3s, transform 0.2s, box-shadow 0.3s;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    }
+    button:hover {
+      background: linear-gradient(45deg, #FFF454, #FFD52E); /* Gradiente mais claro */
+      transform: translateY(-3px);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+    }
+    .link-text {
+        color: var(--text-color);
+        font-size: 0.9em;
+        margin-top: 10px;
+    }
+    .link-text a {
+        color: var(--brand-2); /* Links em preto para contraste */
+        text-decoration: none;
+        font-weight: bolder;
+        transition: color 0.3s;
+    }
+    .link-text a:hover {
+        color: #1d1d1d;
+        text-decoration: underline;
+    }
+
+    .hidden { display: none; }
+    .occurrence-item {
+      text-align: left;
+      margin: 15px 0;
+      padding: 18px;
+      background: rgba(0,0,0,0.3);
+      border-radius: 15px;
+      border: 1px solid rgba(255,255,255,0.2);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .occurrence-item:hover {
+      transform: scale(1.03);
+      box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+    }
+
+    /* Media Queries para responsividade */
+    @media (max-width: 768px) {
+        .main-container {
+            flex-direction: column;
+            gap: 20px;
+        }
+        .welcome-box, .glass-box {
+            min-width: unset;
+            width: 90%;
+            max-width: 500px;
+        }
+        body::before, body::after {
+            width: 300px;
+            height: 300px;
+            filter: blur(60px);
+        }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <img src="imagem/Bandeira_Itabuna_Bahia_Brasil.svg.png" alt="Bandeira de Itabuna">
+    <h1>Minha Itabuna</h1>
+  </header>
+
+  <div class="main-container">
+    <div class="welcome-box">
+        <h2>Bem-vindo de volta!</h2>
+        <p>Para se manter conectado conosco, por favor faça login com suas informações pessoais.</p>
+    </div>
+
+    <div class="glass-box" id="loginBox">
+      <h2>Login</h2>
+      <input type="text" placeholder="Usuário / Email">
+      <input type="password" placeholder="Senha">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 10px;">
+        <label style="font-size: 0.9em; display: flex; align-items: center; gap: 5px;">
+            <input type="checkbox" style="width: auto; margin: 0;"> Lembrar-me
+        </label>
+        <a href="#" class="link-text">Esqueceu a senha?</a>
+      </div>
+      <button onclick="login()">ENTRAR</button>
+      <div class="link-text">
+          Não tem uma conta? <a href="#" onclick="novoUsuario()">Criar novo usuário</a>
+      </div>
+      <button onclick="entrarSemCadastro()" style="background: rgba(0,0,0,0.2); color: black; margin-top: 10px;">Entrar sem cadastro</button>
+    </div>
+  </div>
+
+  <div class="glass-box hidden" id="menuBox">
+    <h2>Bem-vindo!</h2>
+    <button onclick="abrirNovaOcorrencia()">Abrir Nova Ocorrência</button>
+    <button onclick="acompanharOcorrencias()">Acompanhar Ocorrências</button>
+    
+  </div>
+
+  <div class="glass-box hidden" id="novaOcorrenciaBox">
+    <h2>Nova Ocorrência</h2>
+    <textarea id="descricao" maxlength="400" placeholder="Descreva o problema (máx 400 caracteres)"></textarea>
+    <input type="text" id="local" placeholder="Local (Rua, Bairro)">
+    <input type="file" multiple>
+    <button onclick="salvarOcorrencia()">Salvar</button>
+     <button onclick="voltarMenu()">Voltar</button>
+  </div>
+
+  <div class="glass-box hidden" id="ocorrenciasBox">
+    <h2>Ocorrências</h2>
+    <div id="listaOcorrencias">
+      <div class="occurrence-item">Protocolo #1001 - Iluminação pública apagada - Centro</div>
+    </div>
+    <button onclick="voltarMenu()">Voltar</button>
+  </div>
+
+  <script>
+    const loginBox = document.getElementById('loginBox');
+    const menuBox = document.getElementById('menuBox');
+    const novaOcorrenciaBox = document.getElementById('novaOcorrenciaBox');
+    const ocorrenciasBox = document.getElementById('ocorrenciasBox');
+    const listaOcorrencias = document.getElementById('listaOcorrencias');
+    let protocolo = 1002;
+
+    function login(){
+      loginBox.classList.add('hidden');
+      document.querySelector('.welcome-box').classList.add('hidden'); // Esconde a welcome-box
+      menuBox.classList.remove('hidden');
+      document.querySelector('.main-container').style.justifyContent = 'center'; // Centraliza o menuBox
+    }
+    function novoUsuario(){
+      alert('Cadastro de novo usuário (simulação).');
+    }
+    function entrarSemCadastro(){
+      loginBox.classList.add('hidden');
+      document.querySelector('.welcome-box').classList.add('hidden'); // Esconde a welcome-box
+      menuBox.classList.remove('hidden');
+      document.querySelector('.main-container').style.justifyContent = 'center'; // Centraliza o menuBox
+    }
+    function abrirNovaOcorrencia(){
+      menuBox.classList.add('hidden');
+      novaOcorrenciaBox.classList.remove('hidden');
+    }
+    function acompanharOcorrencias(){
+      menuBox.classList.add('hidden');
+      ocorrenciasBox.classList.remove('hidden');
+    }
+    function salvarOcorrencia(){
+      const desc = document.getElementById('descricao').value;
+      const local = document.getElementById('local').value;
+      if(desc && local){
+        const item = document.createElement('div');
+        item.className = 'occurrence-item';
+        item.textContent = `Protocolo #${protocolo++} - ${desc} - ${local}`;
+        listaOcorrencias.appendChild(item);
+        alert('Ocorrência salva com sucesso!');
+        novaOcorrenciaBox.classList.add('hidden');
+        ocorrenciasBox.classList.remove('hidden');
+      } else {
+        alert('Preencha todos os campos!');
+      }
+    }
+    function voltarMenu(){
+      ocorrenciasBox.classList.add('hidden');
+      novaOcorrenciaBox.classList.add('hidden'); // Garante que a nova ocorrencia tbm suma
+      menuBox.classList.remove('hidden');
+      document.querySelector('.welcome-box').classList.add('hidden'); // Esconde a welcome-box ao voltar pro menu
+      document.querySelector('.main-container').style.justifyContent = 'center'; // Centraliza o menuBox
+    }
+  </script>
+</body>
+</html>
