@@ -29,10 +29,10 @@
       justify-content: center;
       padding: 20px;
       overflow: hidden;
-       background-image: url(itabuna-1.webp);
+       background-image: url(itabuna-1.jpg);
        background-repeat: no-repeat;
        background-size: cover;
-        backdrop-filter: blur(7px);
+        backdrop-filter: blur(5px);
      
     }
     
@@ -254,7 +254,7 @@
     <h2>Bem-vindo!</h2>
     <button onclick="abrirNovaOcorrencia()">Abrir Nova Ocorrência</button>
     <button onclick="acompanharOcorrencias()">Acompanhar Ocorrências</button>
-    
+    <button onclick="outrasOcorrencias()">Outras Ocorrências</button>
   </div>
 
   <div class="glass-box hidden" id="novaOcorrenciaBox">
@@ -302,6 +302,10 @@
       novaOcorrenciaBox.classList.remove('hidden');
     }
     function acompanharOcorrencias(){
+      menuBox.classList.add('hidden');
+      ocorrenciasBox.classList.remove('hidden');
+    }
+    function outrasOcorrencias(){
       menuBox.classList.add('hidden');
       ocorrenciasBox.classList.remove('hidden');
     }
